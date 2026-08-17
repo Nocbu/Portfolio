@@ -1,0 +1,8 @@
+Name: Kishan Baghel (preferred Kishan)
+Title: Software Engineer
+Email: Kishanbaghel901@gmail.com
+Bio: I like turning “what if?” into “let’s build it.” I’m Kishan, a software developer who enjoys solving problems, experimenting with technology, and building things that go beyond just working on paper.
+Projects: LMS(Learning Management System), A modern learning management system built with a React frontend and an Express + MongoDB backend. The app includes course browsing, signup/login flow, profile management, Razorpay payment integration, and a responsive UI for students.
+
+Chat-Application: A full-stack real-time chat application built with Spring Boot and a lightweight HTML, CSS, and JavaScript frontend. The application supports user authentication, direct messaging, conversation management, online presence, file attachments, message search, and OAuth2-based authentication.
+
