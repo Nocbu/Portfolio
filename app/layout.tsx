@@ -10,8 +10,45 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} | ${site.role}`,
+  metadataBase: new URL("https://kishanbaghel.dev"),
+  title: {
+    default: `${site.name} | ${site.role}`,
+    template: `%s | ${site.name}`,
+  },
   description: site.bio,
+  keywords: [
+    "software engineer",
+    "full-stack developer",
+    "React",
+    "Next.js",
+    "portfolio",
+  ],
+  authors: [{ name: site.name }],
+  openGraph: {
+    type: "website",
+    title: `${site.name} | ${site.role}`,
+    description: site.bio,
+    siteName: site.name,
+    locale: "en_US",
+    images: [
+      {
+        url: site.photoPath,
+        width: 1200,
+        height: 630,
+        alt: `${site.name} - ${site.role}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | ${site.role}`,
+    description: site.bio,
+    images: [site.photoPath],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
