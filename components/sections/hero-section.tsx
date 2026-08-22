@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/ui/reveal";
+import { TypewriterHeading } from "@/components/ui/typewriter-heading";
 import { site } from "@/lib/site";
 import Image from "next/image";
 
@@ -24,9 +25,10 @@ export function HeroSection() {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                Building products that feel clean, fast, and genuinely useful.
-              </h1>
+              <TypewriterHeading
+                className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+                text="Building products that feel clean, fast, and genuinely useful."
+              />
             </Reveal>
 
             <Reveal delay={0.16}>
