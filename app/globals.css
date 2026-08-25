@@ -2,31 +2,25 @@
 
 :root {
   color-scheme: dark;
-  --bg: #050505;
-  --bg-soft: #0e0e0e;
-  --panel: rgba(255, 255, 255, 0.03);
-  --panel-strong: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #f4f4f5;
-  --muted: #a1a1aa;
+  --bg: #03070c;
+  --bg-soft: #080d14;
+  --panel: rgba(10, 15, 22, 0.52);
+  --panel-strong: rgba(8, 12, 18, 0.72);
+  --border: rgba(255, 255, 255, 0.14);
+  --text: #f8fafc;
+  --muted: #94a3b8;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-* {
-  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #03070c;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), transparent 22%),
-    radial-gradient(circle at 80% 12%, rgba(255, 255, 255, 0.045), transparent 18%),
-    radial-gradient(circle at 50% 85%, rgba(255, 255, 255, 0.03), transparent 24%),
-    linear-gradient(180deg, #020202 0%, var(--bg) 45%, #020202 100%);
+  background-color: #03070c;
   color: var(--text);
   font-family: var(--font-mono), monospace;
   overflow-x: hidden;
@@ -38,7 +32,8 @@ a {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 
 .text-mono {
@@ -47,37 +42,42 @@ a {
 
 .grid-noise {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
+/* Pure Neutral Glassmorphic Window Panes */
 .panel {
   border: 1px solid var(--border);
   background: var(--panel);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .panel-strong {
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   background: var(--panel-strong);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 @keyframes float-photo {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-7px) rotate(0.4deg);
   }
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
 }
 
 .float-photo {
-  animation: float-photo 4.8s ease-in-out infinite;
+  animation: float-photo 5.2s ease-in-out infinite;
 }
 
 .typewriter-cursor {
@@ -85,8 +85,9 @@ a {
   width: 0.1em;
   height: 0.9em;
   margin-left: 0.08em;
-  background: currentColor;
+  background: #ffffff;
   vertical-align: -0.06em;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
 }
 
 @media (prefers-reduced-motion: no-preference) {

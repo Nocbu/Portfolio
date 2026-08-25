@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/ui/reveal";
+﻿import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { experience } from "@/data/experience";
 
@@ -11,14 +11,17 @@ export function ExperienceSection() {
           <div className="mt-6 grid gap-4">
             {experience.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.08}>
-                <article className="rounded-2xl border border-white/10 bg-black/55 p-5 md:p-6">
-                  <p className="text-mono text-xs uppercase tracking-[0.35em] text-zinc-500">
-                    {item.period}
-                  </p>
+                <article className="rounded-2xl border border-white/10 bg-black/40 p-5 md:p-6 backdrop-blur-xl transition-all duration-300 hover:border-white/25 hover:bg-black/60">
+                  <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                    <p className="text-mono text-xs uppercase tracking-[0.35em] text-zinc-400 font-medium">
+                      {item.period}
+                    </p>
+                  </div>
                   <h3 className="mt-3 text-xl font-semibold text-white md:text-2xl">
                     {item.title}
                   </h3>
-                  <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300 sm:text-base">
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300 sm:text-base font-light">
                     {item.summary}
                   </p>
                 </article>
