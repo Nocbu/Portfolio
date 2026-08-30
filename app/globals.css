@@ -1,29 +1,67 @@
 @import "tailwindcss";
 
-:root {
+:root, [data-theme="dark"], html.dark {
   color-scheme: dark;
   --bg: #03070c;
   --bg-soft: #080d14;
   --panel: rgba(10, 15, 22, 0.52);
   --panel-strong: rgba(8, 12, 18, 0.72);
   --border: rgba(255, 255, 255, 0.14);
+  --border-hover: rgba(255, 255, 255, 0.3);
   --text: #f8fafc;
   --muted: #94a3b8;
+  --card-bg: rgba(0, 0, 0, 0.45);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-border: rgba(255, 255, 255, 0.2);
+  --btn-text: #ffffff;
+  --btn-hover-bg: rgba(255, 255, 255, 0.2);
+  --header-bg: rgba(0, 0, 0, 0.6);
+  --cursor-color: #ffffff;
+  --cursor-glow: rgba(255, 255, 255, 0.7);
+  --selection-bg: rgba(255, 255, 255, 0.25);
+  --scrollbar-thumb: #334155;
+  --scrollbar-track: #03070c;
+}
+
+[data-theme="light"], html.light {
+  color-scheme: light;
+  --bg: #dbe4ec;
+  --bg-soft: #edf2f7;
+  --panel: rgba(255, 255, 255, 0.68);
+  --panel-strong: rgba(255, 255, 255, 0.85);
+  --border: rgba(255, 255, 255, 0.75);
+  --border-hover: rgba(15, 23, 42, 0.25);
+  --text: #0f172a;
+  --muted: #475569;
+  --card-bg: rgba(255, 255, 255, 0.6);
+  --card-border: rgba(255, 255, 255, 0.85);
+  --btn-bg: rgba(15, 23, 42, 0.08);
+  --btn-border: rgba(15, 23, 42, 0.16);
+  --btn-text: #0f172a;
+  --btn-hover-bg: rgba(15, 23, 42, 0.15);
+  --header-bg: rgba(255, 255, 255, 0.75);
+  --cursor-color: #0f172a;
+  --cursor-glow: rgba(15, 23, 42, 0.4);
+  --selection-bg: rgba(15, 23, 42, 0.18);
+  --scrollbar-thumb: #94a3b8;
+  --scrollbar-track: #e2e8f0;
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: #334155 #03070c;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #03070c;
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-mono), monospace;
   overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 a {
@@ -32,8 +70,8 @@ a {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
+  background: var(--selection-bg);
+  color: inherit;
 }
 
 .text-mono {
@@ -47,21 +85,23 @@ a {
   background-size: 44px 44px;
 }
 
-/* Pure Neutral Glassmorphic Window Panes */
+/* Frosted Glass Panes (Day & Night) */
 .panel {
   border: 1px solid var(--border);
   background: var(--panel);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .panel-strong {
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--border);
   background: var(--panel-strong);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 @keyframes float-photo {
@@ -85,16 +125,27 @@ a {
   width: 0.1em;
   height: 0.9em;
   margin-left: 0.08em;
-  background: #ffffff;
+  background: var(--cursor-color);
   vertical-align: -0.06em;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 8px var(--cursor-glow);
+  transition: background-color 0.5s ease;
+}
+
+/* Resilient Reveal Animation System */
+.reveal {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    animation: reveal 0.65s both;
+  .reveal.reveal-hidden {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance, 18px));
+  }
+
+  .reveal.reveal-visible {
+    animation: reveal-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     animation-delay: var(--reveal-delay, 0s);
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .typewriter-cursor {
@@ -106,12 +157,11 @@ a {
   }
 }
 
-@keyframes reveal {
+@keyframes reveal-in {
   from {
     opacity: 0;
     transform: translateY(var(--reveal-distance, 18px));
   }
-
   to {
     opacity: 1;
     transform: translateY(0);

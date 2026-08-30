@@ -15,11 +15,12 @@ export function TypewriterHeading({
   speed = 38,
 }: TypewriterHeadingProps) {
   const [displayedCount, setDisplayedCount] = useState(0);
+  const [prevText, setPrevText] = useState(text);
 
-  useEffect(() => {
-    // Reset when text changes
+  if (prevText !== text) {
+    setPrevText(text);
     setDisplayedCount(0);
-  }, [text]);
+  }
 
   useEffect(() => {
     if (displayedCount >= text.length) return;

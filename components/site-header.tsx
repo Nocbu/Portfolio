@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import { site } from "@/lib/site";
 import { RainSoundButton } from "@/components/ui/rain-sound-button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,11 +12,11 @@ export function SiteHeader() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-2xl transition-colors">
-      <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-3 py-4 sm:px-4 md:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--header-bg)] backdrop-blur-2xl transition-colors duration-500">
+      <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-3 py-3.5 sm:px-4 sm:py-4 md:px-6 lg:px-8">
         <a
           href="#top"
-          className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.35em] text-white transition-colors hover:text-zinc-300 sm:text-sm"
+          className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.35em] text-[var(--text)] transition-colors hover:text-zinc-400 sm:text-sm"
         >
           <div className="relative">
             <Image
@@ -23,7 +24,7 @@ export function SiteHeader() {
               alt={`${site.name} logo`}
               width={28}
               height={28}
-              className="rounded-md border border-white/20"
+              className="rounded-md border border-[var(--border)]"
               unoptimized
             />
           </div>
@@ -31,33 +32,36 @@ export function SiteHeader() {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-7 text-sm font-medium text-zinc-400 md:flex">
-          <a href="#about" className="transition-colors hover:text-white">
+        <nav className="hidden items-center gap-7 text-sm font-medium text-[var(--muted)] md:flex">
+          <a href="#about" className="transition-colors hover:text-[var(--text)]">
             About
           </a>
-          <a href="#projects" className="transition-colors hover:text-white">
+          <a href="#projects" className="transition-colors hover:text-[var(--text)]">
             Projects
           </a>
-          <a href="#experience" className="transition-colors hover:text-white">
+          <a href="#experience" className="transition-colors hover:text-[var(--text)]">
             Experience
           </a>
-          <a href="#contact" className="transition-colors hover:text-white">
+          <a href="#contact" className="transition-colors hover:text-[var(--text)]">
             Contact
           </a>
         </nav>
 
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5">
           <a
             href={site.resumePath}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:border-white/35 hover:bg-white/20 sm:text-sm"
+            className="rounded-full border border-[var(--border)] bg-[var(--btn-bg)] px-3.5 py-1.5 text-xs font-medium text-[var(--text)] shadow-sm backdrop-blur-md transition-all duration-300 hover:bg-[var(--btn-hover-bg)] sm:px-4 sm:py-2 sm:text-sm"
           >
             Resume
           </a>
 
-          {/* Rain Ambience Sound Toggle beside Resume */}
+          {/* Rain Ambience Sound Toggle */}
           <RainSoundButton />
+
+          {/* Dark / Light Theme Toggle */}
+          <ThemeToggle />
 
           {/* Mobile Hamburger Button */}
           <button
@@ -65,7 +69,7 @@ export function SiteHeader() {
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-zinc-300 transition-colors hover:text-white md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-[var(--muted)] transition-colors hover:text-[var(--text)] md:hidden"
           >
             <svg
               className="h-6 w-6"
@@ -113,35 +117,35 @@ export function SiteHeader() {
       {/* Mobile Drawer */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
-          isOpen ? "max-h-80 opacity-100 border-t border-white/10" : "max-h-0 opacity-0 border-t-0"
-        } bg-black/95 backdrop-blur-2xl border-b border-white/10`}
+          isOpen ? "max-h-80 opacity-100 border-t border-[var(--border)]" : "max-h-0 opacity-0 border-t-0"
+        } bg-[var(--panel-strong)] backdrop-blur-2xl border-b border-[var(--border)]`}
       >
         <nav className="flex flex-col px-4 py-3 sm:px-6">
           <a
             href="#about"
             onClick={closeMenu}
-            className="block py-2.5 text-sm text-zinc-300 transition-colors hover:text-white"
+            className="block py-2.5 text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             About
           </a>
           <a
             href="#projects"
             onClick={closeMenu}
-            className="block py-2.5 text-sm text-zinc-300 transition-colors hover:text-white"
+            className="block py-2.5 text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             Projects
           </a>
           <a
             href="#experience"
             onClick={closeMenu}
-            className="block py-2.5 text-sm text-zinc-300 transition-colors hover:text-white"
+            className="block py-2.5 text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             Experience
           </a>
           <a
             href="#contact"
             onClick={closeMenu}
-            className="block py-2.5 text-sm text-zinc-300 transition-colors hover:text-white"
+            className="block py-2.5 text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             Contact
           </a>
@@ -150,9 +154,9 @@ export function SiteHeader() {
             target="_blank"
             rel="noreferrer"
             onClick={closeMenu}
-            className="block py-2.5 text-sm text-zinc-300 transition-colors hover:text-white"
+            className="block py-2.5 text-sm text-[var(--text)] font-medium transition-colors hover:underline"
           >
-            Resume
+            Resume (PDF)
           </a>
         </nav>
       </div>

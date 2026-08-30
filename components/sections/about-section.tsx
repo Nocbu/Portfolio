@@ -1,4 +1,4 @@
-﻿import { Reveal } from "@/components/ui/reveal";
+import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { skills } from "@/data/skills";
 import { site } from "@/lib/site";
@@ -29,21 +29,21 @@ export function AboutSection() {
           <SectionHeading eyebrow="About Me" title="A quick intro" />
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-            <div className="rounded-2xl border border-white/10 bg-black/40 p-5 md:p-6 backdrop-blur-xl">
-              <p className="max-w-3xl text-sm leading-7 text-zinc-300 sm:text-base font-light">
+            <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 md:p-6 backdrop-blur-xl transition-colors duration-500">
+              <p className="max-w-3xl text-sm leading-7 text-[var(--muted)] sm:text-base font-light">
                 {site.bio}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-black/40 p-5 md:p-6 backdrop-blur-xl">
-              <p className="text-mono text-xs uppercase tracking-[0.35em] text-zinc-400 font-medium">
+            <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 md:p-6 backdrop-blur-xl transition-colors duration-500">
+              <p className="text-mono text-xs uppercase tracking-[0.35em] text-[var(--muted)] font-medium">
                 Core Stack
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {skills.map((skill) => (
                   <li
                     key={skill}
-                    className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-zinc-200 shadow-sm backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/10 hover:text-white"
+                    className="rounded-full border border-[var(--border)] bg-[var(--badge-bg)] px-3.5 py-1.5 text-xs text-[var(--text)] shadow-sm backdrop-blur-md transition-all duration-200 hover:border-[var(--border-hover)] hover:scale-105"
                   >
                     {skill}
                   </li>
@@ -55,10 +55,10 @@ export function AboutSection() {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {pillars.map((pillar, index) => (
               <Reveal key={pillar.title} delay={index * 0.08}>
-                <div className="rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/60">
+                <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 backdrop-blur-xl transition-all duration-300 hover:border-[var(--border-hover)]">
                   <div className="text-2xl mb-2">{pillar.icon}</div>
-                  <h3 className="text-lg font-semibold text-white">{pillar.title}</h3>
-                  <p className="mt-2.5 text-sm leading-6 text-zinc-300">{pillar.text}</p>
+                  <h3 className="text-lg font-semibold text-[var(--text)]">{pillar.title}</h3>
+                  <p className="mt-2.5 text-sm leading-6 text-[var(--muted)]">{pillar.text}</p>
                 </div>
               </Reveal>
             ))}

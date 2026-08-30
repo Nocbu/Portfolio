@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { subscribeRainAudio, toggleRainAudio } from "@/lib/rain-audio";
@@ -17,15 +17,15 @@ export function RainSoundButton({ className = "" }: { className?: string }) {
       type="button"
       onClick={toggleRainAudio}
       aria-label={isPlaying ? "Mute gentle rain sound" : "Play gentle rain sound"}
-      className={`group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-medium text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:border-white/35 hover:bg-white/20 ${className}`.trim()}
+      className={`group inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--btn-bg)] px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-medium text-[var(--text)] shadow-sm backdrop-blur-md transition-all duration-300 hover:bg-[var(--btn-hover-bg)] active:scale-95 ${className}`.trim()}
     >
       <span className="relative flex h-2 w-2">
         {isPlaying && (
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
         )}
         <span
           className={`relative inline-flex h-2 w-2 rounded-full ${
-            isPlaying ? "bg-white" : "bg-zinc-500"
+            isPlaying ? "bg-emerald-400" : "bg-[var(--muted)]"
           }`}
         />
       </span>
@@ -33,9 +33,9 @@ export function RainSoundButton({ className = "" }: { className?: string }) {
         {isPlaying ? "🌧️" : "☕"}
       </span>
       <span className="hidden sm:inline">
-        {isPlaying ? "Rain Sound" : "Rain Sound"}
+        Rain Sound
       </span>
-      <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-zinc-300 group-hover:text-white">
+      <span className="rounded bg-[var(--badge-bg)] px-1.5 py-0.5 text-[10px] text-[var(--muted)] group-hover:text-[var(--text)]">
         {isPlaying ? "ON" : "OFF"}
       </span>
     </button>

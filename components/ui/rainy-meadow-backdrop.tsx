@@ -1,10 +1,17 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useTheme } from "@/lib/theme-context";
 
 export function RainyMeadowBackdrop() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { theme } = useTheme();
+  const themeRef = useRef(theme);
+
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
 
   // Canvas Rain & Window Water Drops Animation
   useEffect(() => {
@@ -26,8 +33,8 @@ export function RainyMeadowBackdrop() {
 
     window.addEventListener("resize", handleResize);
 
-    // Falling rain streaks (prominent, crisp, slanted)
-    const dropCount = Math.min(Math.floor(width / 9), 150);
+    // Falling rain streaks
+    const dropCount = Math.min(Math.floor(width / 9), 140);
     const drops = Array.from({ length: dropCount }, () => ({
       x: Math.random() * (width + 300) - 100,
       y: Math.random() * height,
@@ -38,7 +45,7 @@ export function RainyMeadowBackdrop() {
     }));
 
     // Window condensation droplets trickling down
-    const windowDroplets = Array.from({ length: 45 }, () => ({
+    const windowDroplets = Array.from({ length: 40 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       radius: Math.random() * 2.8 + 1.2,
@@ -63,11 +70,17 @@ export function RainyMeadowBackdrop() {
       tick++;
       ctx.clearRect(0, 0, width, height);
 
+      const isLight = themeRef.current === "light";
+
       // 1. Draw Falling Rain
       for (let i = 0; i < drops.length; i++) {
         const drop = drops[i];
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(220, 240, 255, ${drop.opacity})`;
+        if (isLight) {
+          ctx.strokeStyle = `rgba(70, 105, 140, ${drop.opacity * 0.9})`;
+        } else {
+          ctx.strokeStyle = `rgba(220, 240, 255, ${drop.opacity})`;
+        }
         ctx.lineWidth = drop.thickness;
         ctx.moveTo(drop.x, drop.y);
         ctx.lineTo(drop.x - drop.length * 0.22, drop.y + drop.length);
@@ -95,9 +108,16 @@ export function RainyMeadowBackdrop() {
           d.y,
           d.radius
         );
-        grad.addColorStop(0, "rgba(255, 255, 255, 0.75)");
-        grad.addColorStop(0.6, "rgba(200, 230, 255, 0.35)");
-        grad.addColorStop(1, "rgba(100, 150, 200, 0.4)");
+
+        if (isLight) {
+          grad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
+          grad.addColorStop(0.6, "rgba(120, 160, 195, 0.35)");
+          grad.addColorStop(1, "rgba(60, 90, 120, 0.35)");
+        } else {
+          grad.addColorStop(0, "rgba(255, 255, 255, 0.75)");
+          grad.addColorStop(0.6, "rgba(200, 230, 255, 0.35)");
+          grad.addColorStop(1, "rgba(100, 150, 200, 0.4)");
+        }
 
         ctx.fillStyle = grad;
         ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
@@ -112,7 +132,9 @@ export function RainyMeadowBackdrop() {
         for (let t = 0; t < d.trail.length; t++) {
           const pt = d.trail[t];
           pt.alpha *= 0.95;
-          ctx.fillStyle = `rgba(220, 240, 255, ${pt.alpha})`;
+          ctx.fillStyle = isLight
+            ? `rgba(90, 130, 165, ${pt.alpha * 0.8})`
+            : `rgba(220, 240, 255, ${pt.alpha})`;
           ctx.beginPath();
           ctx.arc(pt.x, pt.y, d.radius * 0.5, 0, Math.PI * 2);
           ctx.fill();
@@ -142,23 +164,46 @@ export function RainyMeadowBackdrop() {
     };
   }, []);
 
+  const isDark = theme === "dark";
+
   return (
     <>
-      {/* Background Image Layer (Behind Rain & UI) */}
+      {/* Background Image Layer Container */}
       <div
         className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
         aria-hidden="true"
       >
-        <Image
-          src="/uploads/back.jpg"
-          alt="Rainy window background"
-          fill
-          priority
-          className="object-cover object-center opacity-75"
-        />
+        {/* Dark Mode Background: back.jpg */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            isDark ? "opacity-75" : "opacity-0"
+          }`}
+        >
+          <Image
+            src="/uploads/back.jpg"
+            alt="Rainy night window background"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-black/45" />
+        </div>
 
-        {/* Subtle Dark Vignette for contrast */}
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Light Mode Background: day1.png */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            !isDark ? "opacity-90" : "opacity-0"
+          }`}
+        >
+          <Image
+            src="/uploads/day1.png"
+            alt="Rainy day window background"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-white/20 backdrop-blur-[1px]" />
+        </div>
       </div>
 
       {/* Rain Canvas Layer (In Front of Image, Behind UI) */}

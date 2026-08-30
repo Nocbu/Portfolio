@@ -21,28 +21,34 @@ export function Reveal({
     if (!node) return;
 
     if (!("IntersectionObserver" in window)) {
-      setIsVisible(true);
-      return;
+      const id = requestAnimationFrame(() => setIsVisible(true));
+      return () => cancelAnimationFrame(id);
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
             setIsVisible(true);
             observer.disconnect();
           }
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: "0px 0px -40px 0px",
+        threshold: [0, 0.05, 0.1],
+        rootMargin: "0px 0px 80px 0px",
       }
     );
 
     observer.observe(node);
 
+    // Fallback timer: ensure content is NEVER permanently hidden on any device
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 800);
+
     return () => {
+      clearTimeout(fallbackTimer);
       observer.disconnect();
     };
   }, []);
@@ -50,10 +56,9 @@ export function Reveal({
   return (
     <div
       ref={ref}
-      className={`${isVisible ? "reveal" : ""} ${className}`.trim()}
+      className={`reveal ${isVisible ? "reveal-visible" : "reveal-hidden"} ${className}`.trim()}
       style={
         {
-          opacity: isVisible ? undefined : 0,
           "--reveal-delay": `${delay}s`,
           "--reveal-distance": `${y}px`,
         } as CSSProperties

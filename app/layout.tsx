@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { site } from "@/lib/site";
+import { ThemeProvider } from "@/lib/theme-context";
 import "./globals.css";
 
 const mono = JetBrains_Mono({
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
     "full-stack developer",
     "React",
     "Next.js",
+    "Spring Boot",
     "portfolio",
+    "Kishan Baghel",
   ],
   authors: [{ name: site.name }],
   openGraph: {
@@ -57,7 +60,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={mono.variable}>
+    <html lang="en" className={`${mono.variable} dark`} data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('portfolio-theme');
+                  var theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+                  document.documentElement.setAttribute('data-theme', theme);
+                  document.documentElement.classList.remove('dark', 'light');
+                  document.documentElement.classList.add(theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
         <a
           href="#main-content"
@@ -65,7 +85,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

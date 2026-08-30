@@ -4,7 +4,7 @@ export const projects = [
     description:
       "A modern LMS with course browsing, secure signup/login, profile management, Razorpay payment flow, and a responsive student experience.",
     stack: ["React", "Express", "MongoDB", "Razorpay", "REST API"],
-    href: "/uploads/LMS1.jpeg",
+    href: "https://github.com/Nocbu/LMS-Learning-Management-System-",
     images: [
       "/uploads/LMS1.jpeg",
       "/uploads/LMS2.jpeg",
@@ -17,7 +17,7 @@ export const projects = [
     description:
       "A full-stack real-time chat app with authentication, direct messaging, conversations, online presence, file attachments, message search, and OAuth2 login.",
     stack: ["Spring Boot", "Java", "HTML", "CSS", "JavaScript", "OAuth2"],
-    href: "/uploads/chat_application.png",
+    href: "https://github.com/Nocbu/chat-application",
     images: [
       "/uploads/chat_application.png",
       "/uploads/chat_application1.png",

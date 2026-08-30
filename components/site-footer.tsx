@@ -1,26 +1,26 @@
-﻿import { site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-xl">
+    <footer className="relative z-10 border-t border-[var(--border)] bg-[var(--header-bg)] backdrop-blur-xl transition-colors duration-500">
       <div className="mx-auto flex max-w-screen-2xl flex-col items-center justify-between gap-6 px-3 py-8 sm:flex-row sm:gap-4 sm:px-4 md:px-6 lg:px-8">
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-[var(--muted)]">
           &copy; {currentYear} {site.name}
         </p>
 
-        <nav className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-zinc-400">
-          <a href="#about" className="transition-colors hover:text-white">
+        <nav className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-[var(--muted)]">
+          <a href="#about" className="transition-colors hover:text-[var(--text)]">
             About
           </a>
-          <a href="#projects" className="transition-colors hover:text-white">
+          <a href="#projects" className="transition-colors hover:text-[var(--text)]">
             Projects
           </a>
-          <a href="#experience" className="transition-colors hover:text-white">
+          <a href="#experience" className="transition-colors hover:text-[var(--text)]">
             Experience
           </a>
-          <a href="#contact" className="transition-colors hover:text-white">
+          <a href="#contact" className="transition-colors hover:text-[var(--text)]">
             Contact
           </a>
         </nav>
@@ -31,7 +31,7 @@ export function SiteFooter() {
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
-            className="text-zinc-400 transition-colors hover:text-white"
+            className="text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             <svg
               className="h-5 w-5 fill-current"
@@ -46,7 +46,7 @@ export function SiteFooter() {
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
-            className="text-zinc-400 transition-colors hover:text-white"
+            className="text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             <svg
               className="h-5 w-5 fill-current"
@@ -59,7 +59,7 @@ export function SiteFooter() {
           <a
             href={`mailto:${site.email}`}
             aria-label="Email"
-            className="text-zinc-400 transition-colors hover:text-white"
+            className="text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             <svg
               className="h-5 w-5 fill-current"
